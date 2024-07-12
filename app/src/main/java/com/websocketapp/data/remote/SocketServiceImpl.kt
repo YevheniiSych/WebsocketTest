@@ -27,7 +27,7 @@ class SocketServiceImpl(
     override suspend fun initSession(userName: String): Resource<Unit> {
         return try {
             socket = client.webSocketSession {
-                url(SocketService.Endpoints.ChatSocket.url)
+                url(SocketService.Endpoints.Socket.url)
             }
 
             if (socket?.isActive == true) {
