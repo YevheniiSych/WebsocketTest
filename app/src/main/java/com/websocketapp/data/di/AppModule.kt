@@ -1,7 +1,7 @@
 package com.websocketapp.data.di
 
-import com.websocketapp.data.remote.SocketService
-import com.websocketapp.data.remote.SocketServiceImpl
+import com.websocketapp.data.remote.WebSocketService
+import com.websocketapp.data.remote.WebSocketServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +32,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSocketService(client: HttpClient): SocketService {
-        return SocketServiceImpl(client)
+    fun provideSocketService(client: HttpClient): WebSocketService {
+        return WebSocketServiceImpl(client)
     }
 }

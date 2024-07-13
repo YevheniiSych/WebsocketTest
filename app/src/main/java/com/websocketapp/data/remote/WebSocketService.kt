@@ -5,7 +5,7 @@ import com.websocketapp.data.domain.model.Message
 import com.websocketapp.util.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface SocketService {
+interface WebSocketService {
     suspend fun initSession(userName: String): Resource<Unit>
 
     suspend fun sendMessage(message: String)
