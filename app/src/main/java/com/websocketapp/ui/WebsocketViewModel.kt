@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.websocketapp.data.domain.model.Message
 import com.websocketapp.data.remote.WebSocketService
 import com.websocketapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ class WebsocketViewModel @Inject constructor(
     private val webSocketService: WebSocketService
 ) : ViewModel() {
 
+    //Replace with LiveData
     private val _state = mutableStateOf(MessageState())
     val state: State<MessageState> = _state
 
@@ -33,8 +35,11 @@ class WebsocketViewModel @Inject constructor(
                 is Resource.Success -> {
                     webSocketService.observeMessages()
                         .onEach { message ->
+                            val messageToAdd = message.copy(user = "Incoming")
                             _state.value = state.value.copy(
-                                message = message
+                                messagesList = state.value.messagesList.toMutableList().apply {
+                                    add(0, messageToAdd)
+                                }
                             )
                         }.launchIn(viewModelScope)
                 }
@@ -52,6 +57,15 @@ class WebsocketViewModel @Inject constructor(
             if (text.isNotBlank()) {
                 webSocketService.sendMessage(text)
             }
+            val message = Message(
+                user = "Outgoing",
+                text = text
+            )
+            _state.value = state.value.copy(
+                messagesList = state.value.messagesList.toMutableList().apply {
+                    add(0, message)
+                }
+            )
         }
     }
 

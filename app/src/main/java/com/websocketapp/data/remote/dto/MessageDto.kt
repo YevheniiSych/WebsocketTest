@@ -7,6 +7,7 @@ data class MessageDto(
 ) {
     fun toMessage(): Message {
         return Message(
+            user = "",
             text = text
         )
     }

@@ -19,6 +19,6 @@ interface WebSocketService {
     }
 
     sealed class Endpoints(val url: String) {
-        object Socket: Endpoints("$BASE_URL/v3/1?api_key=${BuildConfig.PIESOCKET_API_KEY}&notify_self=1")
+        object Socket: Endpoints("$BASE_URL/v3/1?api_key=${BuildConfig.PIESOCKET_API_KEY}")
     }
 }
